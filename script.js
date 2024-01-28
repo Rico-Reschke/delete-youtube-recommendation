@@ -1,8 +1,13 @@
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+const scrollToTop = async () => {
+  window.scrollTo(0, 0);
+  await sleep(1000); // Kurze Pause, um sicherzustellen, dass die Seite bereit ist
+};
+
 const refreshPage = async () => {
   console.log("Seite wird neu geladen...");
-  await sleep(1000); // Warte 5 Sekunden vor dem Neuladen
+  await sleep(1000);
   location.reload();
 };
 
@@ -84,10 +89,10 @@ const dropdownSubmitClick = async () => {
 };
 
 const bypass = async () => {
+  await scrollToTop();
   await autoScroll();
   await dropdownSubmitClick();
   await refreshPage();
-  await sleep(5000);
   await bypass();
 };
 
