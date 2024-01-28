@@ -1,15 +1,9 @@
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const zoomEffect = async () => {
-  document.body.style.transition = "zoom 0.5s";
-  document.body.style.zoom = "500%";
-  await sleep(1000);
-
-  document.body.style.zoom = "25%";
-  await sleep(1000);
-
-  document.body.style.zoom = "100%";
-  await sleep(1000);
+const refreshPage = async () => {
+  console.log("Seite wird neu geladen...");
+  await sleep(1000); // Warte 5 Sekunden vor dem Neuladen
+  location.reload();
 };
 
 const autoScroll = async () => {
@@ -60,7 +54,7 @@ const deleteSubmitClick = async () => {
     );
     console.log("Fünftes Element:", fifthButton);
     fifthButton.click();
-    await sleep(500);
+    await sleep(1000);
   } else {
     console.log("Weniger als fünf Elemente gefunden.");
     const button = document.querySelector(
@@ -92,8 +86,8 @@ const dropdownSubmitClick = async () => {
 const bypass = async () => {
   await autoScroll();
   await dropdownSubmitClick();
-  await zoomEffect();
-  await sleep(1000);
+  await refreshPage();
+  await sleep(5000);
   await bypass();
 };
 
