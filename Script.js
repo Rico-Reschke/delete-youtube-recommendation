@@ -7,8 +7,10 @@ const autoScroll = () => {
   setInterval(() => {
     window.scrollBy(0, 1000);
     console.log("Gescrollt");
-  }, function2); 
+  }, 2000);
 };
+
+autoScroll();
 
 const function2 = async () => {
   const buttons = document.querySelectorAll(
@@ -24,10 +26,9 @@ const function2 = async () => {
     ) {
       console.log("Klicke auf das Perfect-Button-Element", perfectButton);
       perfectButton.click();
-      await sleep(1000);
+      await sleep(50);
     }
   }
-  autoScroll();
 };
 
 const function1 = async () => {
@@ -43,11 +44,11 @@ const function1 = async () => {
       console.log("Klicke auf das Video-Element", test);
       test.click();
 
-      await function2(); // Aufruf von function2 direkt nach dem Öffnen des Dropdown-Menüs
+      await function2();
 
       for (let i = 5; i > 0; i--) {
         console.log(`Warte noch ${i} Sekunden...`);
-        await sleep(500); // Kurze Pause, um das Dropdown-Menü offen zu halten
+        await sleep(200);
       }
     }
   }
@@ -58,5 +59,3 @@ const bypass = async () => {
 };
 
 bypass();
-
-
