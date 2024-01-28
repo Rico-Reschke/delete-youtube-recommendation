@@ -11,18 +11,45 @@ const wait_for = async (conditional, interval = 20) => {
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+const zoomEffect = async () => {
+  document.body.style.transition = "zoom 0.5s"; // Glatter Übergang für den Zoom
+  document.body.style.zoom = "500%"; // Zoom auf 500%
+  await sleep(1000); // Kurze Pause bei 500% Zoom
 
-const autoScroll = () => {
-  window.scrollBy(0, 1000);
-  console.log("Erstes Scrollen");
+  document.body.style.zoom = "25%"; // Zoom auf 25%
+  await sleep(1000); // Kurze Pause bei 25% Zoom
 
-  setInterval(() => {
-    window.scrollBy(0, 1000);
-    console.log("Gescrollt");
-  }, 2000);
+  document.body.style.zoom = "100%"; // Zurücksetzen auf normalen Zoom
 };
 
-autoScroll();
+const autoScroll = async () => {
+  let lastHeight = document.documentElement.scrollHeight;
+  let attempt = 0;
+
+  while (true) {
+    window.scrollBy(0, 1000); // Scroll um einen festgelegten Wert nach unten
+    console.log("Gescrollt");
+
+    // Warten Sie eine Weile, um das Nachladen von Inhalten zu ermöglichen
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
+    const currentHeight = document.documentElement.scrollHeight;
+    if (lastHeight === currentHeight) {
+      // Wenn die Höhe gleich bleibt, versuchen wir es noch ein paar Mal, bevor wir aufhören
+      if (attempt++ > 3) {
+        // Versuchen Sie es z.B. 3 Mal
+        break;
+      }
+    } else {
+      lastHeight = currentHeight;
+      attempt = 0; // Zurücksetzen des Versuchszählers, da neue Inhalte geladen wurden
+    }
+  }
+
+  console.log(
+    "Das Ende der Seite wurde erreicht oder keine neuen Inhalte mehr geladen"
+  );
+};
 
 const function2 = async () => {
   await wait_for(
@@ -52,6 +79,11 @@ const function2 = async () => {
       console.log("Klicke auf das Perfect-Button-Element", perfectButton);
       perfectButton.click();
       await sleep(50);
+    } else {
+      for (const perfectButtons of perfectButton2) {
+        perfectButtons.click();
+        await sleep(50); // Kurze Pause zwischen den Klicks
+      }
     }
   }
 };
@@ -82,16 +114,12 @@ const function1 = async () => {
       test.click();
 
       await function2();
-
-      for (let i = 5; i > 0; i--) {
-        console.log(`Warte noch ${i} Sekunden...`);
-        await sleep(200);
-      }
     }
   }
 };
 
 const bypass = async () => {
+  await autoScroll();
   await function1();
 };
 
