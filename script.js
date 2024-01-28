@@ -1,14 +1,3 @@
-const wait_for = async (conditional, interval = 20) => {
-  return new Promise((resolve) => {
-    const _wait_for_interval = setInterval(() => {
-      if (conditional() === true) {
-        clearInterval(_wait_for_interval);
-        resolve();
-      }
-    }, interval);
-  });
-};
-
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const zoomEffect = async () => {
@@ -51,76 +40,46 @@ const autoScroll = async () => {
   );
 };
 
-const function2 = async () => {
-  await wait_for(
-    () =>
-      document.querySelector(
-        'ytd-menu-service-item-renderer[class="style-scope ytd-menu-popup-renderer"][role="menuitem"]'
-      ) !== null
-  );
-
+const deleteSubmitClick = async () => {
   const buttons = document.querySelectorAll(
     'ytd-menu-service-item-renderer[class="style-scope ytd-menu-popup-renderer"][role="menuitem"]'
   );
-  for (const button of buttons) {
-    await wait_for(
-      () =>
-        document.querySelector(
-          'yt-formatted-string[class="style-scope ytd-menu-service-item-renderer"]'
-        ) !== null
-    );
-    const perfectButton = button.querySelector(
+
+  // Prüfen, ob mindestens fünf Elemente vorhanden sind
+  if (buttons.length >= 5) {
+    // Zugriff auf das fünfte Element (Index 4)
+    const fifthButton = buttons[4].querySelector(
       'yt-formatted-string[class="style-scope ytd-menu-service-item-renderer"]'
     );
-    if (
-      perfectButton &&
-      perfectButton.textContent === "Keine Videos von diesem Kanal empfehlen"
-    ) {
-      console.log("Klicke auf das Perfect-Button-Element", perfectButton);
-      perfectButton.click();
-      await sleep(50);
-    } else {
-      for (const perfectButtons of perfectButton2) {
-        perfectButtons.click();
-        await sleep(50); // Kurze Pause zwischen den Klicks
-      }
-    }
+    console.log("Fünftes Element:", fifthButton);
+    fifthButton.click();
+    sleep(1000);
+  } else {
+    console.log("Weniger als fünf Elemente gefunden.");
   }
 };
 
-const function1 = async () => {
-  await wait_for(
-    () =>
-      document.querySelector(
-        "yt-icon-button[id='button'][class='dropdown-trigger style-scope ytd-menu-renderer']"
-      ) !== null
-  );
+const dropdownSubmitClick = async () => {
   const videos = document.querySelectorAll(
     "yt-icon-button[id='button'][class='dropdown-trigger style-scope ytd-menu-renderer']"
   );
 
   for (const video of videos) {
-    await wait_for(
-      () =>
-        document.querySelector(
-          "button[id='button'][class='style-scope yt-icon-button'][aria-label]"
-        ) !== null
-    );
-    const test = video.querySelector(
+    const dropdown = video.querySelector(
       "button[id='button'][class='style-scope yt-icon-button'][aria-label]"
     );
-    if (test) {
-      console.log("Klicke auf das Video-Element", test);
-      test.click();
-
-      await function2();
+    if (dropdown) {
+      console.log("Klicke auf das Video-Element", dropdown);
+      dropdown.click();
+      await deleteSubmitClick();
     }
   }
 };
 
 const bypass = async () => {
   await autoScroll();
-  await function1();
+  await dropdownSubmitClick();
+  await zoomEffect();
 };
 
 bypass();
