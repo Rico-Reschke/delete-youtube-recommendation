@@ -22,7 +22,7 @@ const autoScroll = async () => {
     console.log("Gescrollt");
     scrollAttempt++;
 
-    await new Promise(resolve => setTimeout(resolve, 2000)); 
+    await new Promise(resolve => setTimeout(resolve, 1000)); 
 
     const currentHeight = document.documentElement.scrollHeight;
     if (lastHeight === currentHeight) {
@@ -58,14 +58,14 @@ const deleteSubmitClick = async () => {
     );
     console.log("Fünftes Element:", fifthButton);
     fifthButton.click();
-    await sleep(1000);
+    await sleep(500);
   } else {
     console.log("Weniger als fünf Elemente gefunden.");
     const button = document.querySelector(
       'tp-yt-paper-item[class="style-scope ytd-menu-service-item-renderer"][style-target="host"]'
     );
     button.click();
-    await sleep(1000);
+    await sleep(500);
   }
 };
 
@@ -91,7 +91,7 @@ const bypass = async () => {
   await autoScroll();
   await dropdownSubmitClick();
   await zoomEffect();
-  await sleep(3000);
+  await sleep(1000);
   await bypass();
 };
 
