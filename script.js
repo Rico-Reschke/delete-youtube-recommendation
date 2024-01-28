@@ -1,14 +1,14 @@
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const zoomEffect = async () => {
-  document.body.style.transition = "zoom 0.5s"; // Glatter Übergang für den Zoom
-  document.body.style.zoom = "500%"; // Zoom auf 500%
-  await sleep(1000); // Kurze Pause bei 500% Zoom
+  document.body.style.transition = "zoom 0.5s";
+  document.body.style.zoom = "500%";
+  await sleep(1000);
 
-  document.body.style.zoom = "25%"; // Zoom auf 25%
-  await sleep(1000); // Kurze Pause bei 25% Zoom
+  document.body.style.zoom = "25%";
+  await sleep(1000);
 
-  document.body.style.zoom = "100%"; // Zurücksetzen auf normalen Zoom
+  document.body.style.zoom = "100%";
   await sleep(1000);
 };
 
@@ -22,16 +22,17 @@ const autoScroll = async () => {
     console.log("Gescrollt");
     scrollAttempt++;
 
-    await new Promise(resolve => setTimeout(resolve, 1000)); 
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
     const currentHeight = document.documentElement.scrollHeight;
     if (lastHeight === currentHeight) {
       if (attempt++ > 3) {
-        break; // Beenden, wenn die Höhe sich nach mehreren Versuchen nicht ändert
+        break;
       }
       if (scrollAttempt === 2) {
-        // Klicken Sie auf die Navbar, wenn Probleme beim zweiten Scroll-Versuch auftreten
-        const navbar = document.querySelector('div[id="container"][class="style-scope ytd-masthead"]');
+        const navbar = document.querySelector(
+          'div[id="container"][class="style-scope ytd-masthead"]'
+        );
         if (navbar) {
           console.log("Klicke auf die Navbar");
           navbar.click();
@@ -39,13 +40,14 @@ const autoScroll = async () => {
       }
     } else {
       lastHeight = currentHeight;
-      attempt = 0; // Zurücksetzen des Versuchszählers, da neue Inhalte geladen wurden
+      attempt = 0;
     }
   }
 
-  console.log("Das Ende der Seite wurde erreicht oder keine neuen Inhalte mehr geladen");
+  console.log(
+    "Das Ende der Seite wurde erreicht oder keine neuen Inhalte mehr geladen"
+  );
 };
-
 
 const deleteSubmitClick = async () => {
   const buttons = document.querySelectorAll(
