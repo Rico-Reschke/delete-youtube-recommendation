@@ -20,7 +20,7 @@
 
   const scrollToTop = async () => {
     window.scrollTo(0, 0);
-    await sleep(1000); // Kurze Pause, um sicherzustellen, dass die Seite bereit ist
+    await sleep(300); // Kurze Pause, um sicherzustellen, dass die Seite bereit ist
   };
 
   const autoScroll = async () => {
@@ -71,7 +71,7 @@
       );
       console.log("Fünftes Element:", fifthButton);
       fifthButton.click();
-      await sleep(1000);
+      await sleep(100);
     } else {
       console.log("Weniger als fünf Elemente gefunden.");
       const button = document.querySelector(
@@ -94,13 +94,13 @@
         console.log("Klicke auf das Video-Element", dropdown);
         dropdown.click();
         await deleteSubmitClick();
-        await sleep(1000);
+        await sleep(100);
       }
     }
   };
 
   const initializeScript = async () => {
-    await sleep(10000); // Warte zusätzliche 5 Sekunden
+    await sleep(3000); // Warte zusätzliche 5 Sekunden
     dropdownSubmitClick();
   };
 
