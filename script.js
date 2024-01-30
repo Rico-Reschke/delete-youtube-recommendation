@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name         Auto-Click und Zoom Script für YouTube
+// @name         Auto-Click für YouTube
 // @namespace    http://tampermonkey.net/
 // @version      1.0
-// @description  Automatisches Scrollen, Zoomen und Klicken auf YouTube-Seiten
-// @author       Ihr Name
+// @description  Automatisches Scrollen und Klicken auf YouTube
+// @author       Crackstein
 // @match        https://www.youtube.com/*
 // @grant        none
 // @run-at       document-end
